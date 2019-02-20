@@ -112,7 +112,7 @@ class PDFLib{
 
 
 
-    public function convert(){
+    public function convert($start='page'){
         if(!(($this->page_start > 0) && ($this->page_start <= $this->getNumberOfPages()))){
             $this->page_start = 1;
         }
@@ -128,12 +128,12 @@ class PDFLib{
         if(!($this->jpeg_quality >= 1 && $this->jpeg_quality <= 100)){
             $this->jpeg_quality = 100;
         }
-        $image_path = $this->output_path."/page-%d.".$this->imageExtention;
+        $image_path = $this->output_path."/$start-%d.".$this->imageExtention;
         $output = $this->executeGS("-dSAFER -dBATCH -dNOPAUSE -sDEVICE=".$this->imageDeviceCommand." ".$this->pngDownScaleFactor." -r".$this->resolution." -dNumRenderingThreads=4 -dFirstPage=".$this->page_start." -dLastPage=".$this->page_end." -o\"".$image_path."\" -dJPEGQ=".$this->jpeg_quality." -q \"".($this->pdf_path)."\" -c quit");
 
         $fileArray = [];
         for($i=1; $i<=($this->page_end - $this->page_start + 1); ++$i){
-            $fileArray[] = "page-$i.".$this->imageExtention;
+            $fileArray[] = "$start-$i.".$this->imageExtention;
         }
         if(!$this->checkFilesExists($this->output_path,$fileArray)){
             $errrorinfo = implode(",", $output);
