@@ -1,3 +1,5 @@
+You can use specific name for image
+
 # PDFlib 1.2.2
 PDFlib is a project which enables you to interact with PDFs, Current Release provide you methods to convert PDF to Images as well as Images to PDF, future releases will included more functions to interact with PDF files
 
